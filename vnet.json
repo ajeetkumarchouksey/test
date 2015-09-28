@@ -7,7 +7,7 @@
 
     "parameters": {
 
-        //VNET Name
+       
         "ClientName": {
             "type": "string",
             "metadata": {
@@ -18,7 +18,7 @@
 
     },
     "variables": {
-        //Following variable will be used for Address Range
+      
         
         "VNETPrefix": "10.0.0.0/16",
         "ManagmentSubNETCIDR": "10.0.0.0/27",
@@ -33,7 +33,7 @@
         "DEVBackendSubNETCIDR": "10.0.3.0/25",
         "DNSServerAddress": "10.0.0.4",
      
-           //Name for Subnets
+           
         "ManagmentSubNetName": "[concat(parameters('ClientName'),'-','Managment-SubNet')]",
         "VPNSubnetName": "[concat(parameters('ClientName'),'-','VPN-SubNet')]",
         "IntegrationSubNETName": "[concat(parameters('ClientName'),'-','Integration-SubNet')]",
@@ -52,7 +52,7 @@
             "name": "[parameters('ClientName')]",
             "type": "Microsoft.Network/virtualNetworks",
             "location": "[resourceGroup().location]",
-            // "mode": "Incremental",
+        
             "apiVersion": "2015-05-01-preview",
             "dependsOn": [ ],
             "tags": {
@@ -140,11 +140,7 @@
                         }
                     }
 
-                ] //,
-                ////  "dnsSettings": { "dnsServers": [ "[variables('DNSServerAddress')]" ] },
-                // "dhcpOptions": {
-                //     "dnsServers": "[variables('DNSServerAddress')]"
-                // }
+                ] 
             }
         }
     ],
