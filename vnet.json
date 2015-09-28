@@ -1,0 +1,153 @@
+
+
+
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+
+    "parameters": {
+
+        //VNET Name
+        "ClientName": {
+            "type": "string",
+            "metadata": {
+                "Discription": "ClientName"
+            }
+        }
+
+
+    },
+    "variables": {
+        //Following variable will be used for Address Range
+        
+        "VNETPrefix": "10.0.0.0/16",
+        "ManagmentSubNETCIDR": "10.0.0.0/27",
+        "VPNSubnetCIDR": "10.0.0.32/27",
+        "IntegrationSubNETCIDR": "10.0.0.64/27",
+        "DMZSubNETCIDR": "10.0.0.96/27",
+        "WEBSubNETCIDR": "10.0.0.128/25",
+        "ApplicationSubNETCIDR": "10.0.1.0/25",
+        "BackendSubNETCIDR": "10.0.1.128/25",
+        "DEVWEBSubNETCIDR": "10.0.2.0/25",
+        "DEVApplicationSubNETCIDR": "10.0.2.128/25",
+        "DEVBackendSubNETCIDR": "10.0.3.0/25",
+        "DNSServerAddress": "10.0.0.4",
+     
+           //Name for Subnets
+        "ManagmentSubNetName": "[concat(parameters('ClientName'),'-','Managment-SubNet')]",
+        "VPNSubnetName": "[concat(parameters('ClientName'),'-','VPN-SubNet')]",
+        "IntegrationSubNETName": "[concat(parameters('ClientName'),'-','Integration-SubNet')]",
+        "DMZSubNETName": "[concat(parameters('ClientName'),'-','DMZ-SubNet')]",
+        "WEBSubNETName": "[concat(parameters('ClientName'),'-','WEB-SubNet')]",
+        "ApplicationSubNETName": "[concat(parameters('ClientName'),'-','Application-SubNet')]",
+        "BackendSubNETName": "[concat(parameters('ClientName'),'-','Backend-SubNet')]",
+        "DEVWEBSubNETName": "[concat(parameters('ClientName'),'-','DEVWEB-SubNet')]",
+        "DEVApplicationSubNETName": "[concat(parameters('ClientName'),'-','DEVApplication-SubNet')]",
+        "DEVBackendSubNETName": "[concat(parameters('ClientName'),'-','DEVBackend-SubNet')]"
+
+
+    },
+    "resources": [
+        {
+            "name": "[parameters('ClientName')]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "location": "[resourceGroup().location]",
+            // "mode": "Incremental",
+            "apiVersion": "2015-05-01-preview",
+            "dependsOn": [ ],
+            "tags": {
+                "displayName": "[parameters('ClientName')]"
+            },
+            "properties": {
+
+                "addressSpace": {
+                    "mode": "Incremental",
+                    "addressPrefixes": [
+
+                        "[variables('VNETPrefix')]"
+                    ]
+                },
+                
+                "subnets": [
+                    {
+                        "name": "[Variables('ManagmentSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[variables('ManagmentSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('VPNSubnetName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[variables('VPNSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('IntegrationSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[Variables('IntegrationSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('DMZSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[Variables('DMZSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('WEBSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[Variables('WEBSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('ApplicationSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[Variables('ApplicationSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('BackendSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[variables('BackendSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('DEVWEBSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[Variables('DEVWEBSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('DEVApplicationSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[Variables('DEVApplicationSubNETCIDR')]"
+                        }
+                    },
+                    {
+                        "name": "[Variables('DEVBackendSubNETName')]",
+                        "properties": {
+                            "mode": "Incremental",
+                            "addressPrefix": "[variables('DEVBackendSubNETCIDR')]"
+                        }
+                    }
+
+                ] //,
+                ////  "dnsSettings": { "dnsServers": [ "[variables('DNSServerAddress')]" ] },
+                // "dhcpOptions": {
+                //     "dnsServers": "[variables('DNSServerAddress')]"
+                // }
+            }
+        }
+    ],
+    "outputs": {
+    }
+}
